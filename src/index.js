@@ -9,7 +9,7 @@ import { WeatherSvg } from "weather-icons-animated";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App /> <WeatherSvg state="sunny" width={100} height={100} />
+    <App /> <WeatherSvg state="" width={70} height={70} />
   </React.StrictMode>
 );
 
