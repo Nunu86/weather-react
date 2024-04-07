@@ -1,12 +1,9 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>hello world nunu</p>
-      </header>
+      <p className="bg-primary">hello world</p>
     </div>
   );
 }
