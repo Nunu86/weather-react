@@ -1,4 +1,5 @@
 import { WeatherSvg } from "weather-icons-animated";
+import Timezone from "./Timezone.js";
 import "./App.css";
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
           <h1>Lisbon</h1>
           <div className="lh-sm">
             <p>
-              Thursday 15:54 <br /> <span>Clouds</span>
+              <Timezone /> <br /> <span>Clouds</span>
             </p>
           </div>
           <br />
