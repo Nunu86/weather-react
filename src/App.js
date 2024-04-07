@@ -3,15 +3,16 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App border m-5 shadow-sm">
+    <div className="App border m-5 shadow-sm ">
       <div className="Container m-4">
-        <header className="SearchTile ml-4">
+        <header className="SearchTile ml-4 bg-primary-subtle">
           <form className="mt-5">
             <input
               type="search"
               placeholder="Enter a city"
               autoFocus
-              className="shadow-sm px-4"
+              required
+              className="shadow-sm px-4 "
             ></input>
             <input
               type="submit"
@@ -25,7 +26,7 @@ function App() {
             ></input>
           </form>
         </header>
-        <body className="ml-4">
+        <body className="ml-4 bg-primary-subtle">
           <h1>Lisbon</h1>
           <div className="lh-sm">
             <p>
