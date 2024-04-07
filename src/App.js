@@ -12,7 +12,7 @@ function App() {
               placeholder="Enter a city"
               autoFocus
               required
-              className="shadow-sm px-4 "
+              className="shadow-sm px-4"
             ></input>
             <input
               type="submit"
@@ -84,7 +84,16 @@ function App() {
         <footer>
           <p className="mt-4 fs-6 bottomFooter">
             This weather app was coded by Chinonye Okorie. It is open sourced on{" "}
-            <a href="/">GitHub</a> and Hosted on <a href="/">Netlify</a>
+            <a href="https://github.com/Nunu86/weather-react" target="blank">
+              GitHub
+            </a>{" "}
+            and Hosted on{" "}
+            <a
+              href="https://deluxe-rugelach-b83b5e.netlify.app/"
+              target="blank"
+            >
+              Netlify
+            </a>
           </p>
         </footer>
       </div>
