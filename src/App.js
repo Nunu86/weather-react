@@ -24,6 +24,8 @@ export default function App(props) {
     event.preventDefault();
     let switchToCelcius = document.querySelector(`#tempSwitch`);
     switchToCelcius.innerHTML = newWeather.temperature;
+    let changeColour = document.querySelector(`#degCelcius`);
+    changeColour.style.color = "green";
   }
   function changetoFahrenheit(event) {
     event.preventDefault();
@@ -31,6 +33,8 @@ export default function App(props) {
     switchToFahrenheit.innerHTML = Math.round(
       newWeather.temperature * 1.8 + 32
     );
+    let changeColour2 = document.querySelector(`.degFahrenheit`);
+    changeColour2.style.color = "green";
   }
 
   function switchCity() {
@@ -127,11 +131,15 @@ export default function App(props) {
                 <span id="tempSwitch">{newWeather.temperature}</span>
 
                 <span className="TopSpan">
-                  <a href="/" onClick={changetoCelcius}>
+                  <a href="/" onClick={changetoCelcius} id="degCelcius">
                     {" "}
                     ℃ |
                   </a>
-                  <a href="/" onClick={changetoFahrenheit}>
+                  <a
+                    href="/"
+                    onClick={changetoFahrenheit}
+                    className="degFahrenheit"
+                  >
                     ℉
                   </a>
                 </span>
