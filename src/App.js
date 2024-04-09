@@ -12,16 +12,25 @@ export default function App(props) {
   let [City, setEnteredCity] = useState(props.City);
   let [changeCity, setChangeCity] = useState(" ");
   let [newWeather, setNewWeather] = useState("");
+
   let [ready, setready] = useState(false);
-  let [fahrenheit, setFahrenheit] = useState(" ");
-  let [Current, setCurrent] = useState("");
+
+  let [current, setCurrent] = useState("");
   let [currentDateTime, setDateTime] = useState(
     moment.tz("Europe/London").format(`ddd Mo MMM YYYY, h:mm A`)
   );
 
   function changetoCelcius(event) {
     event.preventDefault();
-    setFahrenheit(newWeather.temperature * 10);
+    let switchToCelcius = document.querySelector(`#tempSwitch`);
+    switchToCelcius.innerHTML = newWeather.temperature;
+  }
+  function changetoFahrenheit(event) {
+    event.preventDefault();
+    let switchToFahrenheit = document.querySelector(`#tempSwitch`);
+    switchToFahrenheit.innerHTML = Math.round(
+      newWeather.temperature * 1.8 + 32
+    );
   }
 
   function switchCity() {
@@ -30,12 +39,13 @@ export default function App(props) {
 
   function displayWeather(response) {
     console.log(response.data);
+
     setNewWeather({
       temperature: Math.round(response.data.main.temp),
       wind: Math.round(response.data.wind.speed),
       humidity: Math.round(response.data.main.humidity),
       description: response.data.weather[0].description,
-      icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@1x.png`,
+      icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     });
 
     setDateTime(new Date(response.data.dt * 1000));
@@ -97,9 +107,13 @@ export default function App(props) {
           <body className="ml-4 bg-primary-subtle">
             <h1 id="switchCity">{changeCity}</h1>
             <div className="lh-sm">
-              <p>
+              <p className="fw-bold">
                 <FormattedDate date={currentDateTime} />
-                <br /> <span>{newWeather.description}</span>
+                <br />{" "}
+                <span className="text-primary fs-5">
+                  {newWeather.description.charAt(0).toUpperCase() +
+                    newWeather.description.slice(1)}
+                </span>
               </p>
             </div>
             <br />
@@ -110,17 +124,20 @@ export default function App(props) {
                   alt={newWeather.description}
                   className="fs-7"
                 ></img>
-                {newWeather.temperature}
-                {fahrenheit}
+                <span id="tempSwitch">{newWeather.temperature}</span>
+
                 <span className="TopSpan">
-                  ℃ |
                   <a href="/" onClick={changetoCelcius}>
-                    F
+                    {" "}
+                    ℃ |
+                  </a>
+                  <a href="/" onClick={changetoFahrenheit}>
+                    ℉
                   </a>
                 </span>
               </div>
               <div className="precipitation">
-                <p>Humidity: {newWeather.humidity} </p>
+                <p>Humidity: {newWeather.humidity}% </p>
                 <p>Wind: {newWeather.wind}km/h</p>
               </div>
             </div>

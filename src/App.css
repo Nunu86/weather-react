@@ -3,13 +3,14 @@
   grid-template-columns: 2fr 1fr;
 }
 .TopNumber {
-  font-size: 62px;
+  font-size: 42px;
   position: relative;
   bottom: 20px;
+  font-weight: 600;
 }
 
 .TopSpan {
-  font-size: 28px;
+  font-size: 18px;
   position: relative;
   bottom: 35px;
 }
@@ -24,4 +25,12 @@
 }
 .loading {
   text-align: center;
+}
+.precipitation,
+.description {
+  font-weight: 600;
+}
+App .Weatherdescription {
+  display: block;
+  font-weight: 600;
 }
