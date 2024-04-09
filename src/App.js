@@ -5,6 +5,7 @@ import { Facebook } from "react-content-loader";
 import moment from "moment";
 import "moment-timezone";
 import FormattedDate from "./FormattedDate";
+
 import "./App.css";
 
 export default function App(props) {
@@ -13,6 +14,7 @@ export default function App(props) {
   let [newWeather, setNewWeather] = useState("");
   let [ready, setready] = useState(false);
   let [fahrenheit, setFahrenheit] = useState(" ");
+  let [Current, setCurrent] = useState("");
   let [currentDateTime, setDateTime] = useState(
     moment.tz("Europe/London").format(`ddd Mo MMM YYYY, h:mm A`)
   );
@@ -22,9 +24,11 @@ export default function App(props) {
     setFahrenheit(newWeather.temperature * 10);
   }
 
-  function displayWeather(response) {
-    console.log(response);
+  function switchCity() {
     setChangeCity(`${City}`);
+  }
+
+  function displayWeather(response) {
     setNewWeather({
       temperature: Math.round(response.data.main.temp),
       wind: Math.round(response.data.wind.speed),
@@ -35,17 +39,32 @@ export default function App(props) {
 
     setDateTime(new Date(response.data.dt * 1000));
     setready(true);
+    switchCity();
   }
 
   function preventReload(event) {
     event.preventDefault();
+    let key = `894a2e7aa7f46eeca5d8778f6faa5a5b`;
+    let link = `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${key}&units=metric`;
+    axios.get(link).then(displayWeather);
+  }
+  function runCurrent(event) {
+    event.preventDefault();
+    let place = moment.tz.guess();
+    let singlePlace = place.split("/");
+    setCurrent(singlePlace[1]);
+    let change = document.querySelector(`#switchCity`);
+    change.innerHTML = singlePlace[1];
+
+    let key = `894a2e7aa7f46eeca5d8778f6faa5a5b`;
+    let link = `https://api.openweathermap.org/data/2.5/weather?q=${singlePlace[1]}&appid=${key}&units=metric`;
+    axios.get(link).then(displayWeather);
   }
 
   function ViewCity(event) {
     let newCity = event.target.value;
     setEnteredCity(newCity);
   }
-
   if (ready)
     return (
       <div className="App border m-5 shadow-sm ">
@@ -64,16 +83,18 @@ export default function App(props) {
                 type="submit"
                 value="Search"
                 className="bg-primary text-white"
+                onSubmit={preventReload}
               ></input>
               <input
                 type="submit"
                 value="Current"
                 className="ml-1 bg-success text-white"
+                onClick={runCurrent}
               ></input>
             </form>
           </header>
           <body className="ml-4 bg-primary-subtle">
-            <h1>{changeCity}</h1>
+            <h1 id="switchCity">{changeCity}</h1>
             <div className="lh-sm">
               <p>
                 <FormattedDate date={currentDateTime} />
@@ -160,10 +181,6 @@ export default function App(props) {
       </div>
     );
   else {
-    let key = `894a2e7aa7f46eeca5d8778f6faa5a5b`;
-    let link = `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${key}&units=metric`;
-    axios.get(link).then(displayWeather);
-
     return (
       <div>
         <p className="loading"> Loading...</p>
