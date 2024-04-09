@@ -24,17 +24,34 @@ export default function App(props) {
     event.preventDefault();
     let switchToCelcius = document.querySelector(`#tempSwitch`);
     switchToCelcius.innerHTML = newWeather.temperature;
-    let changeColour = document.querySelector(`#degCelcius`);
-    changeColour.style.color = "green";
+    let celciusSwitch = document.querySelectorAll(
+      `#degCelcius, .degFahrenheit`
+    );
+
+    celciusSwitch.forEach(function (value) {
+      celciusSwitch[0].style.color = "red";
+      celciusSwitch[0].style.fontSize = "24px";
+      celciusSwitch[1].style.color = "black";
+      celciusSwitch[1].style.fontSize = "12px";
+    });
   }
+
   function changetoFahrenheit(event) {
     event.preventDefault();
     let switchToFahrenheit = document.querySelector(`#tempSwitch`);
     switchToFahrenheit.innerHTML = Math.round(
       newWeather.temperature * 1.8 + 32
     );
-    let changeColour2 = document.querySelector(`.degFahrenheit`);
-    changeColour2.style.color = "green";
+    let fahrenheitSwitch = document.querySelectorAll(
+      `#degCelcius, .degFahrenheit`
+    );
+    fahrenheitSwitch.forEach(function () {
+      fahrenheitSwitch[0].style.color = "black";
+      fahrenheitSwitch[1].style.color = "red";
+      fahrenheitSwitch[1].style.fontSize = "24px";
+      fahrenheitSwitch[0].style.fontSize = "12px";
+      return `${fahrenheitSwitch[1]} is a girl`;
+    });
   }
 
   function switchCity() {
