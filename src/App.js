@@ -29,12 +29,13 @@ export default function App(props) {
   }
 
   function displayWeather(response) {
+    console.log(response.data);
     setNewWeather({
       temperature: Math.round(response.data.main.temp),
       wind: Math.round(response.data.wind.speed),
       humidity: Math.round(response.data.main.humidity),
       description: response.data.weather[0].description,
-      icon: `https://openweathermap.org/img/wn/partly_cloudy@2x.png`,
+      icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@1x.png`,
     });
 
     setDateTime(new Date(response.data.dt * 1000));
@@ -107,7 +108,7 @@ export default function App(props) {
                 <img
                   src={newWeather.icon}
                   alt={newWeather.description}
-                  className="fs-5"
+                  className="fs-7"
                 ></img>
                 {newWeather.temperature}
                 {fahrenheit}
