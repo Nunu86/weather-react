@@ -26,11 +26,14 @@
 .loading {
   text-align: center;
 }
-.precipitation,
-.description {
+.precipitation {
   font-weight: 600;
 }
-App .Weatherdescription {
-  display: block;
-  font-weight: 600;
+.degFahrenheit:hover {
+  color: blue;
+  font-size: 25px;
+}
+#degCelcius:hover {
+  color: blue;
+  font-size: 25px;
 }

@@ -14,8 +14,6 @@ export default function App(props) {
   let [newWeather, setNewWeather] = useState("");
 
   let [ready, setready] = useState(false);
-
-  let [current, setCurrent] = useState("");
   let [currentDateTime, setDateTime] = useState(
     moment.tz("Europe/London").format(`ddd Mo MMM YYYY, h:mm A`)
   );
@@ -84,7 +82,7 @@ export default function App(props) {
     event.preventDefault();
     let place = moment.tz.guess();
     let singlePlace = place.split("/");
-    setCurrent(singlePlace[1]);
+
     let change = document.querySelector(`#switchCity`);
     change.innerHTML = singlePlace[1];
 
@@ -97,6 +95,7 @@ export default function App(props) {
     let newCity = event.target.value;
     setEnteredCity(newCity);
   }
+
   if (ready)
     return (
       <div className="App border m-5 shadow-sm ">
@@ -125,13 +124,13 @@ export default function App(props) {
               ></input>
             </form>
           </header>
-          <body className="ml-4 bg-primary-subtle">
+          <body className="ml-4 bg-secondary">
             <h1 id="switchCity">{changeCity}</h1>
             <div className="lh-sm">
               <p className="fw-bold">
                 <FormattedDate date={currentDateTime} />
                 <br />{" "}
-                <span className="text-primary fs-5">
+                <span className="text-black fs-5">
                   {newWeather.description.charAt(0).toUpperCase() +
                     newWeather.description.slice(1)}
                 </span>
