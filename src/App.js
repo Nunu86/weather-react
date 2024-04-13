@@ -1,10 +1,11 @@
-import { WeatherSvg } from "weather-icons-animated";
 import axios from "axios";
 import React, { useState } from "react";
 import { Facebook } from "react-content-loader";
 import moment from "moment";
 import "moment-timezone";
+import ApiCall from "./ApiCall";
 import FormattedDate from "./FormattedDate";
+import WeatherForcast from "./WeatherForcast";
 
 import "./App.css";
 
@@ -58,18 +59,21 @@ export default function App(props) {
 
   function displayWeather(response) {
     console.log(response.data);
+    console.log(newWeather.Long);
+
+    setready(true);
+    setDateTime(new Date(response.data.dt * 1000));
+    switchCity();
 
     setNewWeather({
+      Lat: response.data.coord.lat,
+      Long: response.data.coord.lon,
       temperature: Math.round(response.data.main.temp),
       wind: Math.round(response.data.wind.speed),
       humidity: Math.round(response.data.main.humidity),
       description: response.data.weather[0].description,
       icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
     });
-
-    setDateTime(new Date(response.data.dt * 1000));
-    setready(true);
-    switchCity();
   }
 
   function preventReload(event) {
@@ -125,7 +129,9 @@ export default function App(props) {
             </form>
           </header>
           <body className="ml-4 bg-secondary">
-            <h1 id="switchCity">{changeCity}</h1>
+            <h1 id="switchCity">
+              {changeCity.charAt(0).toUpperCase() + changeCity.slice(1)}
+            </h1>
             <div className="lh-sm">
               <p className="fw-bold">
                 <FormattedDate date={currentDateTime} />
@@ -165,43 +171,10 @@ export default function App(props) {
                 <p>Wind: {newWeather.wind}km/h</p>
               </div>
             </div>
-            <div className="Bottom">
-              <div>
-                <div>Fri</div>
-                <div>
-                  <WeatherSvg state="cloudy" width={30} height={30} />
-                </div>
-                <div>13°</div>
-              </div>
-              <div>
-                <div>Sat</div>
-                <div>
-                  <WeatherSvg state="sunny" width={30} height={30} />
-                </div>
-                <div>15°</div>
-              </div>
-              <div>
-                <div>Fri</div>
-                <div>
-                  <WeatherSvg state="clear-night" width={30} height={30} />
-                </div>
-                <div>17°</div>
-              </div>
-              <div>
-                <div>Sun</div>
-                <div>
-                  <WeatherSvg state="rainy" width={30} height={30} />
-                </div>
-                <div>16°</div>
-              </div>
-              <div>
-                <div>Mon</div>
-                <div>
-                  <WeatherSvg state="sunny" width={30} height={30} />
-                </div>
-                <div>15°</div>
-              </div>
-            </div>
+            <WeatherForcast
+              LatCity={newWeather.Lat}
+              LonCity={newWeather.Long}
+            />
           </body>
           <footer>
             <p className="mt-4 fs-6 bottomFooter">
