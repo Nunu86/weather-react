@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import React, { useState } from "react";
 import { Facebook } from "react-content-loader";
 import moment from "moment";
@@ -58,9 +59,6 @@ export default function App(props) {
   }
 
   function displayWeather(response) {
-    console.log(response.data);
-    console.log(newWeather.Long);
-
     setready(true);
     setDateTime(new Date(response.data.dt * 1000));
     switchCity();
@@ -79,6 +77,7 @@ export default function App(props) {
   function preventReload(event) {
     event.preventDefault();
     let key = `894a2e7aa7f46eeca5d8778f6faa5a5b`;
+
     let link = `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${key}&units=metric`;
     axios.get(link).then(displayWeather);
   }
@@ -128,7 +127,7 @@ export default function App(props) {
               ></input>
             </form>
           </header>
-          <body className="ml-4 bg-secondary">
+          <div className="ml-4 bg-secondary">
             <h1 id="switchCity">
               {changeCity.charAt(0).toUpperCase() + changeCity.slice(1)}
             </h1>
@@ -175,7 +174,7 @@ export default function App(props) {
               LatCity={newWeather.Lat}
               LonCity={newWeather.Long}
             />
-          </body>
+          </div>
           <footer>
             <p className="mt-4 fs-6 bottomFooter">
               This weather app was coded by Chinonye Okorie. It is open sourced

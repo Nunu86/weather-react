@@ -1,16 +1,33 @@
 import React from "react";
 
-export default function ForcastDate(props) {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+import WeatherIcon from "./WeatherIcon";
 
-  let day = props.day.getDay();
-  return days[day];
+export default function ForcastDate(props) {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+  function callDay() {
+    let day = new Date(props.data.dt * 1000).getDay();
+    return `${days[day]}`;
+  }
+
+  function firstDayMaxTemp() {
+    let maxTemp = Math.round(props.data.temp.max);
+    return `${maxTemp}`;
+  }
+  function firstDayMinTemp() {
+    let minTemp = Math.round(props.data.temp.min);
+    return `${minTemp}`;
+  }
+
+  return (
+    <div>
+      <div>{callDay()}</div>
+      <div>
+        <WeatherIcon code={props.data.weather[0].icon} />
+      </div>
+      <div>
+        <span className="maxTemp ">{firstDayMaxTemp()}°</span>
+        <span className="minTemp">{firstDayMinTemp()}°</span>
+      </div>
+    </div>
+  );
 }
