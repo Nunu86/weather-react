@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Facebook } from "react-content-loader";
@@ -9,7 +9,12 @@ import "./App.css";
 export default function WeatherForcast(props) {
   let [Loaded, setLoading] = useState(false);
   let [forcastPackage, setforcastPackage] = useState(" ");
-  console.log(forcastPackage);
+
+  useEffect(() => {
+    //set Loaded to false
+    setLoading(false);
+  }, [props.LatCity || props.LonCity]);
+  //if the coordinates changes after a search
 
   function forcastTemp(response) {
     setforcastPackage(response.data.daily);
@@ -18,10 +23,15 @@ export default function WeatherForcast(props) {
 
   if (Loaded)
     return (
-      <div>
-        <div className="WeatherForcast">
-          <ForcastDate data={forcastPackage[0]} />
-        </div>
+      <div className="WeatherForcast">
+        {forcastPackage.map(function forcast(value, index) {
+          if (index < 6)
+            return (
+              <div key={index}>
+                <ForcastDate data={value} />
+              </div>
+            );
+        })}
       </div>
     );
   else {

@@ -9,7 +9,7 @@ export default function FormattedDate(props) {
     "Saturday",
   ];
   let day = props.date.getDay();
-  console.log(days[day]);
+
   let wordDay = days[day];
 
   let hours = props.date.getHours();

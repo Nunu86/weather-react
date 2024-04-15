@@ -1,10 +1,8 @@
 import axios from "axios";
-
 import React, { useState } from "react";
 import { Facebook } from "react-content-loader";
 import moment from "moment";
 import "moment-timezone";
-import ApiCall from "./ApiCall";
 import FormattedDate from "./FormattedDate";
 import WeatherForcast from "./WeatherForcast";
 
