@@ -13,9 +13,9 @@ export default function WeatherForcast(props) {
   useEffect(() => {
     //set Loaded to false
     setLoading(false);
-  }, [props.LatCity || props.LonCity]);
+  }, [props]);
   //if the coordinates changes after a search
-
+  //use this to make a new api call after the first call
   function forcastTemp(response) {
     setforcastPackage(response.data.daily);
     setLoading(true);
